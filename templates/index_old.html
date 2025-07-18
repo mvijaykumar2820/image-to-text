@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwriting to Text Converter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useRef } = React;
+
+        const HandwritingConverter = () => {
+            const [selectedFile, setSelectedFile] = useState(null);
+            const [previewUrl, setPreviewUrl] = useState('');
+            const [extractedText, setExtractedText] = useState('');
+            const [isLoading, setIsLoading] = useState(false);
+            const [message, setMessage] = useState('');
+            const [messageType, setMessageType] = useState('');
+            const fileInputRef = useRef(null);
+
+            const showMessage = (msg, type = 'info') => {
+                setMessage(msg);
+                setMessageType(type);
+                setTimeout(() => setMessage(''), 5000);
+            };
+
+            const handleFileSelect = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp'];
+                if (!allowedTypes.includes(file.type)) {
+                    showMessage('Please select a valid image file (PNG, JPG, JPEG, GIF, or BMP)', 'error');
+                    return;
+                }
+
+                if (file.size > 16 * 1024 * 1024) {
+                    showMessage('File size must be less than 16MB', 'error');
+                    return;
+                }
+
+                setSelectedFile(file);
+                const reader = new FileReader();
+                reader.onload = (e) => setPreviewUrl(e.target.result);
+                reader.readAsDataURL(file);
+                setExtractedText('');
+            };
+
+            const processImage = async () => {
+                if (!selectedFile) {
+                    showMessage('Please select an image first', 'error');
+                    return;
+                }
+
+                setIsLoading(true);
+                try {
+                    const formData = new FormData();
+                    formData.append('file', selectedFile);
+
+                    const response = await fetch('/api/upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        setExtractedText(result.text);
+                        showMessage(result.message || 'Text extracted successfully!', 'success');
+                    } else {
+                        showMessage(result.error || 'Failed to extract text', 'error');
+                        setExtractedText('');
+                    }
+                } catch (error) {
+                    console.error('Error processing image:', error);
+                    showMessage('Error processing image. Please try again.', 'error');
+                    setExtractedText('');
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            const clearAll = () => {
+                setSelectedFile(null);
+                setPreviewUrl('');
+                setExtractedText('');
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+            };
+
+            const copyToClipboard = () => {
+                navigator.clipboard.writeText(extractedText);
+                showMessage('Text copied to clipboard!', 'success');
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
+                    <div className="bg-white rounded-lg shadow-lg p-8">
+                        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                            Handwriting to Text Converter
+                        </h1>
+
+                        {message && (
+                            <div className={`mb-6 p-4 rounded-lg ${
+                                messageType === 'success' ? 'bg-green-100 text-green-800' : 
+                                messageType === 'error' ? 'bg-red-100 text-red-800' : 
+                                'bg-blue-100 text-blue-800'
+                            }`}>
+                                {message}
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            {/* Upload Section */}
+                            <div>
+                                <h2 className="text-xl font-semibold mb-4 text-gray-700">
+                                    Upload Handwritten Image
+                                </h2>
+                                
+                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <input
+                                        ref={fileInputRef}
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileSelect}
+                                        className="hidden"
+                                    />
+                                    
+                                    {previewUrl ? (
+                                        <div className="space-y-4">
+                                            <img
+                                                src={previewUrl}
+                                                alt="Preview"
+                                                className="max-h-64 mx-auto rounded-lg shadow-md"
+                                            />
+                                            <div className="text-sm text-gray-600">
+                                                <p className="font-medium">{selectedFile?.name}</p>
+                                                <p>{(selectedFile?.size / 1024 / 1024).toFixed(2)} MB</p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            <div className="text-6xl text-gray-400">📄</div>
+                                            <p className="text-gray-600">
+                                                Click to upload or drag and drop
+                                            </p>
+                                            <p className="text-sm text-gray-500">
+                                                PNG, JPG, JPEG, GIF, or BMP (max 16MB)
+                                            </p>
+                                        </div>
+                                    )}
+                                    
+                                    <div className="mt-6 flex gap-3 justify-center">
+                                        <button
+                                            onClick={() => fileInputRef.current?.click()}
+                                            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                        >
+                                            Choose File
+                                        </button>
+                                        
+                                        {selectedFile && (
+                                            <button
+                                                onClick={clearAll}
+                                                className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                                            >
+                                                Clear
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={processImage}
+                                    disabled={!selectedFile || isLoading}
+                                    className="w-full mt-6 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-semibold"
+                                >
+                                    {isLoading ? 'Processing...' : 'Extract Text'}
+                                </button>
+                            </div>
+
+                            {/* Results Section */}
+                            <div>
+                                <h2 className="text-xl font-semibold mb-4 text-gray-700">
+                                    Extracted Text
+                                </h2>
+                                
+                                <div className="space-y-4">
+                                    <div className="h-80 p-4 border border-gray-300 rounded-lg overflow-y-auto bg-gray-50">
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center h-full">
+                                                <div className="text-center">
+                                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                                                    <p className="text-gray-600">Processing your image...</p>
+                                                </div>
+                                            </div>
+                                        ) : extractedText ? (
+                                            <div className="whitespace-pre-wrap text-gray-800 font-mono text-sm">
+                                                {extractedText}
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center justify-center h-full text-gray-400">
+                                                <div className="text-center">
+                                                    <div className="text-6xl mb-4">📝</div>
+                                                    <p>Upload an image to extract text</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {extractedText && (
+                                        <div className="flex justify-between items-center">
+                                            <div className="text-sm text-gray-600">
+                                                <span>{extractedText.split('\n').length} lines, </span>
+                                                <span>{extractedText.length} characters</span>
+                                            </div>
+                                            <button
+                                                onClick={copyToClipboard}
+                                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                                            >
+                                                Copy Text
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<HandwritingConverter />, document.getElementById('root'));
+    </script>
+</body>
+</html>
