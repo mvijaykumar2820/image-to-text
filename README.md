@@ -161,4 +161,94 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Happy Converting! 🎉**
-# image-to-text
+# Image to Text Converter
+
+A modern, mobile-responsive web application that converts text from images using advanced OCR (Optical Character Recognition) technology.
+
+## Features
+
+- **Mobile-First Design**: Fully responsive interface that works seamlessly on all devices
+- **Drag & Drop Support**: Easy image upload with drag-and-drop functionality
+- **Real-time Processing**: Fast text extraction using OCR.space API
+- **Multiple Format Support**: Supports PNG, JPG, JPEG, GIF, and BMP formats
+- **Copy to Clipboard**: One-click text copying for convenience
+- **File Size Validation**: Automatically validates file types and sizes (up to 16MB)
+- **Professional UI**: Clean, modern interface with smooth animations
+
+## Technology Stack
+
+- **Backend**: Flask (Python)
+- **Frontend**: React.js with Tailwind CSS
+- **OCR Service**: OCR.space API
+- **Icons**: Lucide React
+- **Styling**: Tailwind CSS for responsive design
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/mvijaykumar2820/image-to-text.git
+cd image-to-text
+```
+
+2. Install Python dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
+Add your OCR.space API key to the `.env` file:
+```
+OCR_API_KEY=your_ocr_space_api_key_here
+```
+
+4. Run the application:
+```bash
+python app.py
+```
+
+5. Open your browser and navigate to `http://localhost:5003`
+
+## Usage
+
+1. **Upload an Image**: Click the "Select Image" button or drag and drop an image file
+2. **Extract Text**: Click the "Extract Text" button to process the image
+3. **Copy Results**: Use the copy button to copy the extracted text to your clipboard
+
+## API Endpoints
+
+- `GET /` - Main application interface
+- `POST /api/upload` - Upload and process image for text extraction
+
+## Mobile Responsiveness
+
+The application is fully optimized for mobile devices with:
+- Responsive grid layouts (single column on mobile, two columns on desktop)
+- Touch-friendly buttons and controls
+- Optimized font sizes and spacing
+- Mobile-first CSS approach using Tailwind breakpoints
+
+## Tips for Better OCR Results
+
+- Use clear, well-lit images
+- Ensure text is not blurry or tilted
+- Higher resolution images work better
+- Dark text on light background is ideal
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For issues or questions, please open an issue on GitHub.
