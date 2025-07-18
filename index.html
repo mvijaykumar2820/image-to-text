@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Converter</title>
+    <meta name="description" content="Convert text from images using advanced OCR technology. Mobile-responsive web application built with React and Flask.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">Image to Text Converter</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                    <a href="#demo" class="text-gray-600 hover:text-blue-600 transition-colors">Demo</a>
+                    <a href="https://github.com/mvijaykumar2820/image-to-text" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Convert Images to Text</h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Extract text from images using advanced OCR technology. Mobile-responsive, fast, and accurate.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#demo" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Try Demo
+                </a>
+                <a href="https://github.com/mvijaykumar2820/image-to-text" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                    View Source
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-center mb-12">Features</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 card-hover">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Mobile Responsive</h4>
+                    <p class="text-gray-600">Works seamlessly on all devices - phones, tablets, and desktops.</p>
+                </div>
+                <div class="text-center p-6 card-hover">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Fast Processing</h4>
+                    <p class="text-gray-600">Quick text extraction using advanced OCR.space API technology.</p>
+                </div>
+                <div class="text-center p-6 card-hover">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Multiple Formats</h4>
+                    <p class="text-gray-600">Supports PNG, JPG, JPEG, GIF, and BMP image formats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-3xl font-bold mb-8">Try the Demo</h3>
+            <p class="text-lg text-gray-600 mb-8">
+                The full application is a Flask web app with React frontend. 
+                To run it locally, clone the repository and follow the setup instructions.
+            </p>
+            <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+                <h4 class="text-xl font-semibold mb-4">Quick Start</h4>
+                <div class="text-left">
+                    <pre class="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+<code>git clone https://github.com/mvijaykumar2820/image-to-text.git
+cd image-to-text
+pip install -r requirements.txt
+python app.py</code>
+                    </pre>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">
+                    Then open <code class="bg-gray-100 px-2 py-1 rounded">http://localhost:5003</code> in your browser
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-center mb-12">Built With</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-blue-600 font-bold text-lg">React</span>
+                    </div>
+                    <h4 class="font-semibold">React.js</h4>
+                    <p class="text-gray-600 text-sm">Frontend UI</p>
+                </div>
+                <div class="p-4">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-green-600 font-bold text-lg">Flask</span>
+                    </div>
+                    <h4 class="font-semibold">Flask</h4>
+                    <p class="text-gray-600 text-sm">Python Backend</p>
+                </div>
+                <div class="p-4">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-purple-600 font-bold text-lg">TW</span>
+                    </div>
+                    <h4 class="font-semibold">Tailwind CSS</h4>
+                    <p class="text-gray-600 text-sm">Styling</p>
+                </div>
+                <div class="p-4">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-orange-600 font-bold text-lg">OCR</span>
+                    </div>
+                    <h4 class="font-semibold">OCR.space</h4>
+                    <p class="text-gray-600 text-sm">Text Recognition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Image to Text Converter</h4>
+                    <p class="text-gray-400">Convert text from images using advanced OCR technology.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/mvijaykumar2820/image-to-text" class="text-gray-400 hover:text-white transition-colors">GitHub Repository</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#demo" class="text-gray-400 hover:text-white transition-colors">Demo</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Technology</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">React.js Frontend</li>
+                        <li class="text-gray-400">Flask Backend</li>
+                        <li class="text-gray-400">OCR.space API</li>
+                        <li class="text-gray-400">Tailwind CSS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 Image to Text Converter. Built with ❤️ using React & Flask.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

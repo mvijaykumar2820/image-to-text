@@ -1,0 +1,64 @@
+# Jekyll configuration for GitHub Pages
+# Prevent Jekyll from processing folders with Liquid syntax errors
+
+# Basic Jekyll settings
+title: "Image to Text Converter"
+description: "Convert text from images using advanced OCR technology"
+baseurl: "/image-to-text"
+url: "https://mvijaykumar2820.github.io"
+
+# GitHub Pages settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude files and folders from Jekyll processing
+exclude:
+  - node_modules/
+  - frontend/node_modules/
+  - frontend/node_modules/**
+  - package*.json
+  - frontend/package*.json
+  - yarn.lock
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle/
+  - venv/
+  - env/
+  - __pycache__/
+  - "*.py"
+  - requirements.txt
+  - setup.sh
+  - .env*
+  - uploads/
+  - frontend/build/
+  - frontend/.cache/
+  - .cache/
+  - .vscode/
+  - .idea/
+  - .DS_Store
+  - Thumbs.db
+  - README.md
+
+# Include files that Jekyll normally ignores
+include:
+  - _pages
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# Permalink structure
+permalink: /:categories/:title/
+
+# Build settings
+incremental: false
+safe: true
+source: .
+destination: ./_site
+
+# GitHub Pages specific settings
+github:
+  repository_nwo: mvijaykumar2820/image-to-text

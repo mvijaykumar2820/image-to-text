@@ -1,0 +1,40 @@
+# Tell Jekyll to ignore folders that cause build errors on GitHub Pages
+# node_modules contains files with Liquid-like syntax that break the build
+
+# Ignore Node.js dependencies
+node_modules/
+frontend/node_modules/
+frontend/node_modules/**
+
+# Ignore Python virtual environment
+venv/
+env/
+__pycache__/
+
+# Ignore build artifacts
+frontend/build/
+frontend/.cache/
+.cache/
+
+# Ignore package manager files
+package-lock.json
+frontend/package-lock.json
+yarn.lock
+
+# Ignore development files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore uploads folder (user generated content)
+uploads/
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
